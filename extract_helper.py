@@ -1,5 +1,7 @@
 import re
+import pandas as pd
 
+# 보고서 parsing 관련
 def extract_section(content, start, end):
     if isinstance(content, str):
         match = re.search(rf'{re.escape(start)}(.*?){re.escape(end)}', content, re.DOTALL)
@@ -37,3 +39,24 @@ def new_extract_motivation(content):
         result += match3
 
     return result.strip()  # 결과를 공백으로 조합하여 반환
+
+# csv 파일 관련
+# 데이터를 읽어올 대상 열 선택
+def select_content(row):
+    if row['Attachment Present'] == "Yes":
+        return row['Attachment Content']
+    else:
+        return row['Text Content']
+    
+# Version에 따라 함수 선택
+def process_content(row):
+    content = row['Selected Content']
+    try:
+        # 'Version' 열이 존재하면 값에 따라 처리
+        if row['Version'] == 'old':
+            return old_extract_motivation(content)
+        elif row['Version'] == 'new':
+            return new_extract_motivation(content)
+    except KeyError:
+        # 'Version' 열이 없을 경우 기본값 처리
+        return old_extract_motivation(content)

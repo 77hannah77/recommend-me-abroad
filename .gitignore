@@ -1,0 +1,11 @@
+# python cache folder
+__pycache__/
+
+# exclude folder with data files
+data_set/
+
+# exclude the primitive testing files
+primitive_ver/
+
+# exclude the ppt
+*.pptx

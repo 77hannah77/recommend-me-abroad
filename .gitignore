@@ -9,3 +9,6 @@ primitive_ver/
 
 # exclude the ppt
 *.pptx
+
+# .DS_Store
+.DS_Store

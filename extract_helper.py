@@ -1,5 +1,4 @@
 import re
-import pandas as pd
 
 # 보고서 parsing 관련
 def extract_section(content, start, end):
@@ -63,3 +62,9 @@ def process_content(row):
     except KeyError:
         # 'Version' 열이 없을 경우 기본값 처리
         return old_extract_motivation(content)
+
+# 불용어 처리
+def preprocess_text(text, stopwords, mecab):
+    nouns = mecab.nouns(text)  # 명사 추출
+    filtered_nouns = [word for word in nouns if word not in stopwords and len(word) > 1]  # 불용어 제거
+    return ' '.join(filtered_nouns)  # 문자열로 결합

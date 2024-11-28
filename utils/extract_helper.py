@@ -1,4 +1,5 @@
 import re
+import pandas as pd
 
 # 보고서 parsing 관련
 def extract_section(content, start, end):
@@ -65,6 +66,12 @@ def process_content(row):
 
 # 불용어 처리
 def preprocess_text(text, stopwords, mecab):
-    nouns = mecab.nouns(text)  # 명사 추출
-    filtered_nouns = [word for word in nouns if word not in stopwords and len(word) > 1]  # 불용어 제거
-    return ' '.join(filtered_nouns)  # 문자열로 결합
+    if pd.isnull(text):  # NaN 처리
+        return ''
+    try:
+        nouns = mecab.nouns(text)  # 명사 추출
+        filtered_nouns = [word for word in nouns if word not in stopwords]  # 불용어 제거
+        return ' '.join(filtered_nouns)  # 문자열로 결합
+    except Exception as e:
+        print(f"Error processing text: {text}, error: {e}")
+        return ''

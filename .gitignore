@@ -12,3 +12,6 @@ primitive_ver/
 
 # .DS_Store
 .DS_Store
+
+# csv files created for temporary saves
+*.csv

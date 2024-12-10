@@ -15,3 +15,6 @@ primitive_ver/
 
 # csv files created for temporary saves
 *.csv
+
+# pretrained model
+trained_model

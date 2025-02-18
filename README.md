@@ -1,1 +1,2 @@
-# recommend-me-abroad
+# 서강대학교 기초추천시스템 프로젝트
+
